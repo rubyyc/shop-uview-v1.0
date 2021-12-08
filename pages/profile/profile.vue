@@ -8,6 +8,12 @@ export default {
     return {
 
     };
+  },
+  onLoad(){
+    if(!this.$u.utils.isLogin()){
+      return false
+    }
+    
   }
 }
 </script>

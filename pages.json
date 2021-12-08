@@ -31,7 +31,16 @@
 	        "enablePullDownRefresh": false
 	      }
 	    }
-	  ],
+	      ,{
+            "path" : "pages/auth/login",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
 	  "globalStyle": {
 	    "navigationBarTextStyle": "black",
 	    "navigationBarTitleText": "图书商城",

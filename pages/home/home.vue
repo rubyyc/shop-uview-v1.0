@@ -68,19 +68,12 @@ export default {
       const res = await this.$u.api.index(params)
       this.slides = res.slides
       this.goods = [...this.goods, ...res.goods.data]
-      console.log(res);
-      console.log(111);
-      // uni.hideLoading()
     }
   },
   onReachBottom () {
     // 重新请求数据,带上分页的参数
     this.page++
     this.getData()
-    // uni.showLoading({
-    //   title: '加载中',
-    //   mask: true
-    // })
   }
 }
 </script>

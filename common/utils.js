@@ -11,20 +11,24 @@ const install = (Vue, vm) => {
         options,
         route
       } = currentPage
-      const optionsKeys = Object.keys(options)
-      let params = ''
-      if (optionsKeys.length) {
-        params = optionsKeys.reduce((pre, current) => {
-          return pre + current + '=' + options[current] + '&'
-        }, '?').slice(0, -1)
-        console.log(params);
-      }
+      // 1.自己写object转params
+      // const optionsKeys = Object.keys(options)
+      // let params = ''
+      // if (optionsKeys.length) {
+      //   params = optionsKeys.reduce((pre, current) => {
+      //     return pre + current + '=' + options[current] + '&'
+      //   }, '?').slice(0, -1)
+      //   console.log(params);
+      // }
 
-      uni.setStorageSync('back_url', route + params)
+      // uni.setStorageSync('back_url', route + params)
+
+      // 2.用uview提供的写
+      uni.setStorageSync('back_url', route + vm.$u.queryParams(options))
       setTimeout(() => {
         vm.$u.route({
           type: 'redirect',
-          url: 'pages/login/login'
+          url: 'pages/auth/login'
         })
       }, 2000)
       return false
