@@ -7,14 +7,7 @@
 
     <u-row gutter="16">
         <u-col span="6" v-for="(item, index) in goods" :key="index">
-          <navigator class="goods-item">
-            <u-image width="100%" height="300rpx" :src="item.cover_url"></u-image>
-            <view class="title u-line-1 u-skeleton-rect">{{item.title}}</view>
-            <view class="u-flex u-row-between">
-              <view class="price u-skeleton-rect">￥{{item.price * 1000 | hotNumber}}</view>
-              <view class="sales u-skeleton-rect">销量: {{item.sales}}</view>
-            </view>
-          </navigator>
+          <goods-card :item="item"></goods-card>
         </u-col>
     </u-row>
   </view>
@@ -46,8 +39,6 @@ export default {
     }
   },
   onLoad () {
-    console.log(this.vuex_user);
-    this.$u.utils.isLogin()
     this.getData()
   },
   methods: {
@@ -62,7 +53,6 @@ export default {
     // 获取数据
     async getData () {
       // 显示骨架屏
-      this.loading = true
       const params = {
         page: this.page
       }
@@ -76,40 +66,25 @@ export default {
         params.new = 1
       }
       const res = await this.$u.api.index(params)
-      // 隐藏骨架屏
-      this.loading = false
       this.slides = res.slides
       this.goods = [...this.goods, ...res.goods.data]
       console.log(res);
       console.log(111);
+      // uni.hideLoading()
     }
   },
   onReachBottom () {
     // 重新请求数据,带上分页的参数
     this.page++
     this.getData()
+    // uni.showLoading({
+    //   title: '加载中',
+    //   mask: true
+    // })
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.goods-item {
-	padding: 40rpx;
-	margin-top: 30rpx;
-	box-shadow: 0 12rpx 20rpx 0 rgba(0, 0, 0, 0.1);
-	.title {
-		margin: 10rpx 0;
-		font-weight: 500;
-		font-size: 32rpx;
-		width: 100%;
-	}
-	.price {
-		color: red;
-		width: 50%;
-	}
-	.sales {
-		color: #888;
-		width: 50%;
-	}
-}
+
 </style>
